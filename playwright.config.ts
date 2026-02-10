@@ -1,37 +1,37 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  // پوشه تست‌ها
+  // Test directory
   testDir: './tests',
   
-  // اجرای موازی تست‌ها برای سرعت بیشتر
+  // Run tests fully in parallel for speed
   fullyParallel: true,
 
-  // در CI تست‌ها را یکی‌یکی اجرا کن که تداخل نکنند، در سیستم خودت موازی
+  // Use a single worker in CI to avoid interference; otherwise use default
   workers: process.env.CI ? 1 : undefined,
 
-  // تنظیمات گزارش‌دهی (هم در ترمینال لیست کن، هم فایل HTML بساز)
+  // Reporter settings (list in terminal and create HTML report)
   reporter: [['list'], ['html']],
 
-  // تنظیمات مشترک برای همه تست‌ها
+  // Shared settings for all tests
   use: {
-    // آدرس پیش‌فرض سایت شما (که دیگر در تست‌ها تکرار نکنیم)
+    // Default base URL for the site (so tests don't repeat it)
     baseURL: 'https://mohhsen.com',
 
-    // جمع‌آوری اطلاعات دیباگ (Trace) فقط وقتی تست فیل شد
+    // Collect trace only on the first retry
     trace: 'on-first-retry',
     
-    // گرفتن اسکرین‌شات فقط وقتی تست فیل شد
+    // Capture screenshots only on failure
     screenshot: 'only-on-failure',
   },
 
-  // تنظیمات مرورگرها
+  // Browser projects
   projects: [
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-    // اگر خواستید در فایرفاکس هم تست کنید این را از کامنت درآورید
+    // Uncomment to run tests in Firefox as well
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },

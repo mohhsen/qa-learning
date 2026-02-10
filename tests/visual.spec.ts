@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
-test('تست بصری', async ({ page }) => {
+test('visual test', async ({ page }) => {
   await page.goto('/');
-  // این کد یعنی: عکس بگیر و اگر نداریم، ذخیره‌اش کن
+  // Take a screenshot and save baseline if it's missing
   await expect(page).toHaveScreenshot('home-page.png');
 });

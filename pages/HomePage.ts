@@ -1,4 +1,4 @@
-// مسیر: QA/pages/HomePage.ts
+// Path: QA/pages/HomePage.ts
 import { type Page, type Locator, expect } from '@playwright/test';
 
 export class HomePage {
@@ -8,24 +8,24 @@ export class HomePage {
 
   constructor(page: Page) {
     this.page = page;
-    // تعریف المنت‌ها (لوکیتورها)
-    // نکته: اگر متن دکمه در سایت شما فرق دارد، اینجا اصلاح کنید
+    // Define elements (locators)
+    // Note: If the button text on your site is different, adjust here
     this.aboutButton = page.getByRole('button', { name: 'About' });
-    // اضافه کردن exact: true باعث می‌شود فقط دومی را پیدا کند
+    // Adding exact: true makes it match only the precise heading
     this.experienceHeading = page.getByRole('heading', { name: 'Experience', exact: true }); 
   }
 
-  // اکشن: باز کردن صفحه
+  // Action: open the page
   async goto() {
     await this.page.goto('https://mohhsen.com/');
   }
 
-  // اکشن: رفتن به بخش درباره ما
+  // Action: navigate to the About section
   async navigateToAbout() {
     await this.aboutButton.click();
   }
 
-  // اکشن: بررسی (Assertion)
+  // Action: assertion
   async verifyExperienceVisible() {
     await expect(this.experienceHeading).toBeVisible();
   }

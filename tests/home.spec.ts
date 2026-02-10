@@ -1,15 +1,15 @@
-// مسیر: QA/tests/home.spec.ts
+// Path: QA/tests/home.spec.ts
 import { test } from '@playwright/test';
-import { HomePage } from '../pages/HomePage'; // اتصال به فایل مدل
+import { HomePage } from '../pages/HomePage'; // connect to the page model file
 
-test('بررسی نویگیشن با الگوی POM', async ({ page }) => {
-  // ساخت نمونه از کلاس صفحه اصلی
+test('verify navigation using POM pattern', async ({ page }) => {
+  // Instantiate the home page class
   const home = new HomePage(page);
 
-  // اجرای سناریو به زبان ساده
+  // Run the scenario in simple steps
   await home.goto();
   await home.navigateToAbout();
   
-  // بررسی نهایی
+  // Final assertion
   await home.verifyExperienceVisible();
 });

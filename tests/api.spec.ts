@@ -1,41 +1,41 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('تست‌های API (بدون مرورگر)', () => {
+test.describe('API tests (without browser)', () => {
 
-  // سناریو ۱: بررسی سلامت سرور سایت محسن
-  test('باید وضعیت سایت محسن ۲۰۰۰ باشد', async ({ request }) => {
-    // ارسال درخواست GET
+  // Scenario 1: Check health of the Mohsen site server
+  test('should return 200 for the Mohsen site', async ({ request }) => {
+    // Send GET request
     const response = await request.get('https://mohhsen.com/');
 
-    // بررسی اینکه درخواست موفق بوده (Status 200-299)
+    // Verify the request was successful (Status 200-299)
     expect(response.ok()).toBeTruthy();
     expect(response.status()).toBe(200);
     
-    // چاپ کردن سرعت پاسخ‌دهی سرور (برای شما که فنی هستید جذابه)
-    console.log(`Time taken: ${await response.headers()['date']}`);
+    // Log the server Date header (useful for debugging)
+    console.log(`Date header: ${await response.headers()['date']}`);
   });
 
-  // سناریو ۲: تست ساخت دیتا (Create) در یک API عمومی
-  test('باید بتواند یک پست جدید بسازد', async ({ request }) => {
+  // Scenario 2: Test creating data (Create) on a public API
+  test('should be able to create a new post', async ({ request }) => {
     const newPost = {
       title: 'Mohsen QA Expert',
       body: 'Learning Playwright API testing',
       userId: 1,
     };
 
-    // ارسال درخواست POST به همراه دیتا
+    // Send POST request with data
     const response = await request.post('https://jsonplaceholder.typicode.com/posts', {
       data: newPost
     });
 
-    // ۱. بررسی موفقیت درخواست
+    // 1. Verify success
     expect(response.status()).toBe(201); // 201 = Created
 
-    // ۲. بررسی دیتای برگشتی (Response Body)
+    // 2. Verify response body
     const jsonResponse = await response.json();
     console.log('Response:', jsonResponse);
 
-    // چک می‌کنیم سرور همان عنوانی که فرستادیم را برگردانده باشد
+    // Check the server returned the title we sent
     expect(jsonResponse.title).toBe('Mohsen QA Expert');
   });
 
